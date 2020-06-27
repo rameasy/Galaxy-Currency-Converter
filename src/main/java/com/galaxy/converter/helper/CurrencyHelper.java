@@ -57,6 +57,7 @@ public class CurrencyHelper {
 	 * @return List<String> returns the result message
 	 */
 	public List<String> getIntergalacticConversionValues(List<String> currencyValuesAndQuestion) {
+		logger.info("Entering getIntergalacticConversionValues");
 		List<String> returningList = new ArrayList<>();
 		QuestionTypes questionTypes = new QuestionTypes();
 		WordBook wordBook = new WordBook();
@@ -70,12 +71,14 @@ public class CurrencyHelper {
 				} else {
 					// if it is not a question then add the symbol/metal to the WordBook
 					setGalacticCurrenciesMappingValues(values, wordBook);
+
 				}
 			} catch (GalacticBusinessException ex) {
 				logger.error("Exception caught {} for {}", ex.getExceptionMessage(), values);
 				returningList.add(ex.getExceptionMessage());
 			}
 		}
+		logger.info("Exiting getIntergalacticConversionValues with List :: {}", returningList);
 		return returningList;
 	}
 
@@ -93,6 +96,7 @@ public class CurrencyHelper {
 	 */
 	private void setGalacticCurrenciesMappingValues(String values, WordBook wordBook)
 			throws GalacticBusinessRomanSymbolException, GalacticBusinessNumericSymbolException {
+		logger.info("Entering setGalacticCurrenciesMappingValues");
 		try {
 			// Split the string based on ' is ' value available on the String
 			String[] keyValue = values.split(Constants.BLANK_SPACE + Constants.IS + Constants.BLANK_SPACE);
@@ -105,6 +109,7 @@ public class CurrencyHelper {
 		} catch (GalacticBusinessNumericSymbolException nse) {
 			throw nse;
 		}
+		logger.info("Exiting setGalacticCurrenciesMappingValues");
 	}
 
 	/**
@@ -118,12 +123,14 @@ public class CurrencyHelper {
 	 */
 	private void validateGalacticCurrencies(String galacticCurrencies, WordBook wordBook)
 			throws GalacticBusinessInvalidCurrencyCodeException {
+		logger.info("Entering validateGalacticCurrencies");
 		String[] currencies = galacticCurrencies.split(Constants.BLANK_SPACE);
 		for (String currency : currencies) {
 			if (!wordBook.getWordList().contains(currency)) {
 				throw new GalacticBusinessInvalidCurrencyCodeException(Constants.INVALID_QUESTION);
 			}
 		}
+		logger.info("Exiting validateGalacticCurrencies");
 	}
 
 }

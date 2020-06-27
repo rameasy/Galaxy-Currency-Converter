@@ -1,5 +1,8 @@
 package com.galaxy.converter.questions;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.galaxy.converter.exception.GalacticBusinessInvalidCurrencyCodeException;
 import com.galaxy.converter.util.Constants;
 
 /**
@@ -17,7 +20,10 @@ public class QuestionTypes {
 	 * @param question
 	 * @return Question
 	 */
-	public Question getQuestionType(String question) {
+	public Question getQuestionType(String question) throws GalacticBusinessInvalidCurrencyCodeException {
+		if (StringUtils.isBlank(question)) {
+			throw new GalacticBusinessInvalidCurrencyCodeException(Constants.INVALID_QUESTION);
+		}
 		if (question.startsWith(Constants.HOW_MUCH)) {
 			return new HowMuch(question);
 		} else if (question.startsWith(Constants.HOW_MANY)) {

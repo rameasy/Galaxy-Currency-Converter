@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.galaxy.converter.exception.GalacticBusinessRomanSymbolException;
 
 /**
@@ -14,6 +17,7 @@ import com.galaxy.converter.exception.GalacticBusinessRomanSymbolException;
  *
  */
 public class RomanUtils {
+	private static final Logger logger = LoggerFactory.getLogger(RomanUtils.class);
 
 	protected static final Map<Character, Integer> romanMap = new HashMap<>();
 
@@ -43,6 +47,7 @@ public class RomanUtils {
 	 * @throws GalacticBusinessRomanSymbolException
 	 */
 	public static int romanToNumber(String romanValue) throws GalacticBusinessRomanSymbolException {
+		logger.info("Entering romanToNumber");
 		int total = 0;
 		int currentValue = 0;
 		int previousValue = 0;
@@ -53,6 +58,7 @@ public class RomanUtils {
 				previousValue = currentValue;
 			}
 		}
+		logger.info("Exiting romanToNumber");
 		return total;
 	}
 

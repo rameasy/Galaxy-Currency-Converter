@@ -3,6 +3,9 @@ package com.galaxy.converter.util;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.galaxy.converter.exception.GalacticBusinessInvalidCurrencyCodeException;
 import com.galaxy.converter.exception.GalacticBusinessRomanSymbolException;
 
@@ -13,6 +16,8 @@ import com.galaxy.converter.exception.GalacticBusinessRomanSymbolException;
  *
  */
 public class GalacticConversionUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(GalacticConversionUtils.class);
 
 	/**
 	 * default constructor
@@ -45,9 +50,10 @@ public class GalacticConversionUtils {
 	 */
 	public static float getMetalValue(String question, Map<String, Float> metalMap)
 			throws GalacticBusinessInvalidCurrencyCodeException {
+		logger.info("Entering getMetalValue");
 		float metalValue = 1f;
 		boolean valueNotFound = true;
-		//split the question with blank space and iterate the values on the metalMap 
+		// split the question with blank space and iterate the values on the metalMap
 		for (String key : question.split(Constants.BLANK_SPACE)) {
 			if (metalMap.get(key) != null) {
 				metalValue *= metalMap.get(key);
@@ -57,6 +63,7 @@ public class GalacticConversionUtils {
 		if (valueNotFound) { // If the metal name is not found on the Map
 			throw new GalacticBusinessInvalidCurrencyCodeException(Constants.INVALID_METAL);
 		}
+		logger.info("Exiting getMetalValue");
 		return metalValue;
 	}
 
@@ -71,9 +78,10 @@ public class GalacticConversionUtils {
 	 */
 	public static int getNumericValue(String question, Map<String, String> romanMap)
 			throws GalacticBusinessRomanSymbolException, GalacticBusinessInvalidCurrencyCodeException {
+		logger.info("Entering getNumericValue");
 		StringBuilder romanValue = new StringBuilder();
 		boolean valueNotFound = true;
-		//split the question with blank space and iterate the values on the romanMap
+		// split the question with blank space and iterate the values on the romanMap
 		for (String key : question.split(Constants.BLANK_SPACE)) {
 			if (romanMap.get(key) != null) {
 				romanValue.append(romanMap.get(key));
@@ -83,6 +91,7 @@ public class GalacticConversionUtils {
 		if (valueNotFound) { // If the intergalactic symbol name is not found on the Map
 			throw new GalacticBusinessInvalidCurrencyCodeException(Constants.INVALID_SYMBOL);
 		}
+		logger.info("Exiting getNumericValue");
 		return RomanUtils.romanToNumber(romanValue.toString());
 	}
 }

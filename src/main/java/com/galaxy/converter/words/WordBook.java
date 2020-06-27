@@ -27,7 +27,7 @@ public class WordBook {
 	 * default constructor
 	 */
 	public WordBook() {
-
+		// default constructor
 	}
 
 	public List<String> getWordList() {
@@ -67,6 +67,7 @@ public class WordBook {
 	 */
 	public void addWordsToWordBook(String words, String value)
 			throws GalacticBusinessNumericSymbolException, GalacticBusinessRomanSymbolException {
+		logger.info("Entering addWordsToWordBook");
 		try {
 			// split the String with blanks space. If it is greater than 1 word then it is
 			// with metal name
@@ -95,10 +96,12 @@ public class WordBook {
 					this.addWordToIntergalacticWordMap(words.trim(), value);
 				}
 			}
+			logger.info("Exiting addWordsToWordBook");
 		} catch (NumberFormatException nfe) {
 			logger.error("Exception caught {} for {}", nfe.getMessage(), value);
 			throw new GalacticBusinessNumericSymbolException(Constants.INVALID_SYMBOL);
 		} catch (GalacticBusinessRomanSymbolException | ArrayIndexOutOfBoundsException ex) {
+			logger.error("Exception caught {} for {}", ex.getMessage(), value);
 			throw new GalacticBusinessRomanSymbolException(Constants.INVALID_SYMBOL);
 		}
 	}

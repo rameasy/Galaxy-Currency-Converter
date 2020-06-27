@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -71,9 +72,11 @@ class GalaxyCurrencyConverterApplicationTests {
 		argumentsList.add("how many Credits is mnop ijkl Gold ?");
 		argumentsList.add("how much is mnop qrst ?");
 		argumentsList.add("how many Credits is efgh Lead ?");
+		argumentsList.add(null);
+		argumentsList.add(" ");
 		List<String> expectedList = gcca.getCurrencyValues(argumentsList);
 		assertNotNull(expectedList);
-		assertEquals(12, expectedList.size());
+		assertEquals(14, expectedList.size());
 		assertEquals("I have no idea about the symbol", expectedList.get(0));
 		assertEquals("I have no idea about the symbol", expectedList.get(1));
 		assertEquals("ijkl mnop is 900", expectedList.get(2));
@@ -86,5 +89,23 @@ class GalaxyCurrencyConverterApplicationTests {
 		assertEquals("mnop ijkl Gold is 1100000 Credits", expectedList.get(9));
 		assertEquals("I have no idea what you are talking about", expectedList.get(10));
 		assertEquals("I have no idea about the metal", expectedList.get(11));
+		assertEquals("I have no idea what you are talking about", expectedList.get(12));
+		assertEquals("I have no idea what you are talking about", expectedList.get(13));
+	}
+
+	@Test
+	public void convertValueTest3() {
+		List<String> expectedList = gcca.getCurrencyValues(null);
+		assertNotNull(expectedList);
+		assertEquals(1, expectedList.size());
+		assertEquals("I have no idea what you are talking about", expectedList.get(0));
+	}
+	
+	@Test
+	public void convertValueTest4() {
+		List<String> expectedList = gcca.getCurrencyValues(Collections.emptyList());
+		assertNotNull(expectedList);
+		assertEquals(1, expectedList.size());
+		assertEquals("I have no idea what you are talking about", expectedList.get(0));
 	}
 }

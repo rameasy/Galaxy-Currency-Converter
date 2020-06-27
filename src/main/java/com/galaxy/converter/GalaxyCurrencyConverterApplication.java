@@ -1,11 +1,14 @@
 package com.galaxy.converter;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.galaxy.converter.helper.CurrencyHelper;
+import com.galaxy.converter.util.Constants;
 
 /**
  * @author Ramachandran S
@@ -31,8 +34,14 @@ public class GalaxyCurrencyConverterApplication {
 	 */
 	public List<String> getCurrencyValues(List<String> currencyValuesAndQuestion) {
 		logger.info("Entering getConvertedValue");
-		List<String> conversionList = currencyHelper.getIntergalacticConversionValues(currencyValuesAndQuestion);
-		logger.info("Exiting getConvertedValue");
-		return conversionList;
+		if (!CollectionUtils.isEmpty(currencyValuesAndQuestion)) {
+			List<String> conversionList = currencyHelper.getIntergalacticConversionValues(currencyValuesAndQuestion);
+			logger.info("Exiting getConvertedValue");
+			return conversionList;
+		} else {
+			logger.info("Exiting getConvertedValue with errors");
+			return Arrays.asList(Constants.INVALID_QUESTION);
+		}
+
 	}
 }
