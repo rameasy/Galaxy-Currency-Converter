@@ -22,7 +22,7 @@ class GalaxyCurrencyConverterApplicationTests {
 	}
 
 	@Test
-	public void convertValueTest1() {
+	public void getCurrencyValuesTest_positive1() {
 		argumentsList.add("glob is I");
 		argumentsList.add("prok is V");
 		argumentsList.add("pish is X");
@@ -51,7 +51,7 @@ class GalaxyCurrencyConverterApplicationTests {
 
 	
 	@Test
-	public void convertValueTest2() {
+	public void getCurrencyValuesTest_positive2() {
 		argumentsList.add("abcd is I");
 		argumentsList.add("efgh is V");
 		argumentsList.add("ijkl is C");
@@ -94,7 +94,7 @@ class GalaxyCurrencyConverterApplicationTests {
 	}
 
 	@Test
-	public void convertValueTest3() {
+	public void getCurrencyValuesTest_negative_null_lists() {
 		List<String> expectedList = gcca.getCurrencyValues(null);
 		assertNotNull(expectedList);
 		assertEquals(1, expectedList.size());
@@ -102,7 +102,7 @@ class GalaxyCurrencyConverterApplicationTests {
 	}
 	
 	@Test
-	public void convertValueTest4() {
+	public void getCurrencyValuesTest_negative_emptyList() {
 		List<String> expectedList = gcca.getCurrencyValues(Collections.emptyList());
 		assertNotNull(expectedList);
 		assertEquals(1, expectedList.size());
